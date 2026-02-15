@@ -1,0 +1,356 @@
+/* LuxeAura Beauty - mobile-first luxury affiliate store styles */
+:root {
+  --surface: #ffffff;
+  --surface-alt: #fdf3f3;
+  --text: #2f2428;
+  --muted: #736068;
+  --accent: #be7d8f;
+  --accent-dark: #9f5f72;
+  --border: #ead8dd;
+  --shadow: 0 12px 28px rgba(80, 38, 53, 0.12);
+  --radius: 1.1rem;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #fffaf8 0%, #fff 30%, #fffaf8 100%);
+  line-height: 1.6;
+}
+
+img { max-width: 100%; display: block; border-radius: calc(var(--radius) - 0.2rem); }
+a { color: inherit; text-decoration: none; }
+.container { width: min(1120px, 92%); margin: 0 auto; }
+
+h1, h2, h3 {
+  font-family: "Cormorant Garamond", serif;
+  line-height: 1.15;
+  margin: 0 0 0.65rem;
+}
+h1 { font-size: clamp(2rem, 7vw, 3.5rem); }
+h2 { font-size: clamp(1.8rem, 5vw, 2.6rem); }
+h3 { font-size: clamp(1.4rem, 4vw, 1.9rem); }
+p { margin: 0 0 0.85rem; color: var(--muted); }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 251, 250, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0;
+  gap: 1rem;
+}
+
+.brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+}
+
+.menu-toggle {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 0.6rem;
+  padding: 0.4rem 0.7rem;
+}
+
+.main-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 4%;
+  left: 4%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 0.8rem;
+  box-shadow: var(--shadow);
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.main-nav.show { display: flex; }
+.main-nav a { font-size: 0.95rem; }
+
+.section { padding: 4rem 0; }
+.alt { background: var(--surface-alt); }
+.eyebrow {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.hero {
+  padding: 4.5rem 0 3rem;
+  background: linear-gradient(155deg, #fceef0 0%, #fff8f4 50%, #f5e6e7 100%);
+}
+.hero-grid,
+.guide-box,
+.you-may-love-grid,
+.footer-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.hero-sub { max-width: 60ch; }
+.hero-card { padding: 0.5rem; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); }
+
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.55rem;
+  border-radius: 99px;
+  color: #fff;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+  margin-bottom: 0.65rem;
+}
+
+.section-head { margin-bottom: 1.2rem; }
+.product-grid,
+.category-grid,
+.editor-grid,
+.list-grid {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.product-card,
+.category-card,
+.product-list-card,
+.guide-box,
+.you-may-love-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: 0 5px 16px rgba(113, 64, 82, 0.08);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.product-card:hover,
+.category-card:hover,
+.product-list-card:hover,
+.guide-box:hover,
+.you-may-love-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.featured-first {
+  border: 2px solid #d397a9;
+  background: linear-gradient(180deg, #fff 0%, #fff6f7 100%);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.78rem 1.1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+  color: #fff;
+}
+.btn-secondary {
+  background: #f5dde4;
+  color: #552f3e;
+}
+
+.category-hero {
+  padding: 4.5rem 0 3.2rem;
+  background: linear-gradient(140deg, #f9e4e9 0%, #fff8f6 55%, #f6e8ef 100%);
+}
+
+.product-list-card { padding: 0.9rem; }
+.product-list-card .content { padding-top: 0.9rem; }
+.product-list-card ul {
+  margin: 0 0 0.8rem;
+  padding-left: 1rem;
+  color: #5f4e56;
+}
+.stars { color: #bc7f2d; font-weight: 700; }
+.stars span { color: #5c4a52; font-weight: 600; font-size: 0.9rem; }
+.actions { display: grid; gap: 0.6rem; }
+.share-link { font-size: 0.85rem; color: var(--accent-dark); font-weight: 600; }
+
+.you-may-love-card h3 { margin-top: 0.6rem; }
+.you-may-love-card p { margin-bottom: 1rem; }
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 540px;
+}
+th, td {
+  text-align: left;
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+th { background: #fff3f4; color: #573741; font-size: 0.86rem; }
+
+.faq-list { display: grid; gap: 0.65rem; }
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: #fff;
+}
+.faq-question {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: none;
+  padding: 0.9rem;
+  font-weight: 700;
+  color: #4a3540;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 250ms ease;
+}
+.faq-answer p { padding: 0 0.9rem 0.9rem; margin: 0; }
+.faq-item.open .faq-answer { max-height: 180px; }
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0 6rem;
+  background: #fff;
+}
+.footer-grid {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #fff 0%, #fff6f8 100%);
+  padding: 1.2rem;
+}
+.footer-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  color: #442a35;
+}
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem 0.8rem;
+}
+.footer-links a {
+  color: #5e4350;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.disclaimer-box {
+  font-size: 0.85rem;
+  color: #6f5962;
+  border-top: 1px dashed var(--border);
+  padding-top: 0.8rem;
+}
+.copyright {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #7a666f;
+}
+
+.back-to-top,
+.floating-cta {
+  position: fixed;
+  z-index: 900;
+  border: 0;
+  box-shadow: var(--shadow);
+}
+.floating-cta {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0.9rem;
+  background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+  color: #fff;
+  font-weight: 700;
+  padding: 0.78rem 1.3rem;
+  border-radius: 999px;
+}
+.back-to-top {
+  right: 0.8rem;
+  bottom: 4.3rem;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 999px;
+  background: #f5dce2;
+  color: #593443;
+  display: none;
+}
+.back-to-top.show { display: inline-flex; align-items: center; justify-content: center; }
+
+.section-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 450ms ease, transform 450ms ease;
+}
+.section-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .menu-toggle { display: none; }
+  .main-nav {
+    position: static;
+    display: flex;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  .hero-grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; }
+  .guide-box { grid-template-columns: 1fr auto; align-items: center; }
+  .product-grid,
+  .category-grid,
+  .editor-grid,
+  .you-may-love-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .list-grid { gap: 1rem; }
+  .product-list-card { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 1rem; align-items: start; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .disclaimer-box,
+  .copyright { grid-column: 1 / -1; }
+  .floating-cta { display: none; }
+  .site-footer { padding-bottom: 2.2rem; }
+}
+
+@media (min-width: 1024px) {
+  .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .category-grid,
+  .editor-grid,
+  .you-may-love-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

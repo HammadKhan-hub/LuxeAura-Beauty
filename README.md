@@ -1,1 +1,1 @@
-# LuxeAura-Beauty
+# affi-store
