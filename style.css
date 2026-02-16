@@ -355,25 +355,66 @@ th { background: #fff3f4; color: #573741; font-size: 0.86rem; }
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
-/* Product card height consistency */
-.product-grid {
-  grid-auto-rows: 1fr;
+/* Global card layout normalization */
+.product-grid,
+.category-grid,
+.editor-grid,
+.you-may-love-grid,
+.list-grid {
+  display: grid;
   align-items: stretch;
 }
 
-.product-card {
+.product-grid,
+.category-grid,
+.editor-grid,
+.you-may-love-grid {
+  grid-auto-rows: 1fr;
+}
+
+.product-card,
+.category-card,
+.you-may-love-card,
+.product-list-card,
+.hero-card,
+.guide-box {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.product-card img {
+.product-card img,
+.category-card img,
+.you-may-love-card img,
+.product-list-card img,
+.hero-card img {
   width: 100%;
   height: 250px;
   object-fit: cover;
 }
 
-.product-card .btn {
+.product-card .btn,
+.category-card .btn,
+.you-may-love-card .btn,
+.hero-card .btn,
+.guide-box .btn {
   margin-top: auto;
+}
+
+.product-list-card .content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+.product-list-card .actions {
+  margin-top: auto;
+}
+
+.category-card .btn + .btn {
+  margin-top: 0.6rem;
 }
