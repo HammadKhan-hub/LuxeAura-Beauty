@@ -1,4 +1,4 @@
-/* LuxeAura Beauty - mobile-first luxury affiliate store styles */
+/* Lumévera - mobile-first luxury affiliate store styles */
 :root {
   --surface: #ffffff;
   --surface-alt: #fdf3f3;
@@ -353,4 +353,27 @@ th { background: #fff3f4; color: #573741; font-size: 0.86rem; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Product card height consistency */
+.product-grid {
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.product-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.product-card .btn {
+  margin-top: auto;
 }
