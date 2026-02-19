@@ -369,6 +369,7 @@ th { background: #fff3f4; color: #573741; font-size: 0.86rem; }
 .category-grid,
 .editor-grid,
 .you-may-love-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-auto-rows: 1fr;
 }
 
