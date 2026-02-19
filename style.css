@@ -456,7 +456,7 @@ th { background: #fff3f4; color: #573741; font-size: 0.86rem; }
   .mobile-quick-tools {
     display: block;
     position: sticky;
-    top: 64px;
+    top: var(--mobile-tools-top, 64px);
     z-index: 950;
     background: #fff;
     border-bottom: 1px solid var(--border);
@@ -505,18 +505,23 @@ th { background: #fff3f4; color: #573741; font-size: 0.86rem; }
     color: #5f4a53;
   }
 
+  .mobile-bottom-nav a.active {
+    color: var(--accent-dark);
+    font-weight: 700;
+  }
+
   .mobile-bottom-nav strong {
     display: block;
     font-size: 1rem;
     line-height: 1.1;
   }
 
-  .site-footer {
-    padding-bottom: 5.5rem;
+  body.has-mobile-nav .site-footer {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
   }
 
-  .floating-cta {
-    bottom: 4.6rem;
+  body.has-mobile-nav .floating-cta {
+    bottom: calc(4.6rem + env(safe-area-inset-bottom));
   }
 }
 

@@ -55,7 +55,7 @@ if (backToTop) {
   });
 }
 
-// Simple reveal on scroll for retention effect
+// Simple reveal on scroll
 const animatedSections = document.querySelectorAll('.section-animate');
 if ('IntersectionObserver' in window && animatedSections.length) {
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -65,50 +65,80 @@ if ('IntersectionObserver' in window && animatedSections.length) {
         observer.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.15,
-  });
+  }, { threshold: 0.15 });
 
   animatedSections.forEach((section) => revealObserver.observe(section));
 } else {
   animatedSections.forEach((section) => section.classList.add('visible'));
 }
 
-// Mobile quick tools + bottom nav (inspired by marketplace UX, only shown on mobile)
+// Mobile UX helpers (only enabled on small screens)
+const isMobileViewport = window.matchMedia('(max-width: 767px)').matches;
 const currentPath = window.location.pathname;
-const mobileTools = document.createElement('section');
-mobileTools.className = 'mobile-quick-tools';
-mobileTools.innerHTML = `
-  <div class="mobile-search-row">
-    <input type="search" placeholder="Search products" aria-label="Search products">
-    <button type="button">Search</button>
-  </div>
-`;
+const productCards = document.querySelectorAll('.product-card, .product-list-card, .you-may-love-card');
 
-const header = document.querySelector('.site-header');
-if (header) {
-  header.insertAdjacentElement('afterend', mobileTools);
+const depth = currentPath.split('/').filter(Boolean).length;
+const relPrefix = depth <= 1 ? '.' : '../'.repeat(depth - 1).replace(/\/$/, '');
+const toPage = (page) => `${relPrefix}/${page}`.replace('//', '/');
+
+if (isMobileViewport) {
+  const header = document.querySelector('.site-header');
+
+  if (header) {
+    const mobileTools = document.createElement('section');
+    mobileTools.className = 'mobile-quick-tools';
+    mobileTools.innerHTML = `
+      <div class="mobile-search-row">
+        <input type="search" placeholder="Search products" aria-label="Search products">
+        <button type="button">Search</button>
+      </div>
+    `;
+    header.insertAdjacentElement('afterend', mobileTools);
+
+    const topOffset = `${Math.ceil(header.offsetHeight)}px`;
+    document.documentElement.style.setProperty('--mobile-tools-top', topOffset);
+
+    const searchInput = mobileTools.querySelector('input');
+    const searchButton = mobileTools.querySelector('button');
+
+    const runProductFilter = () => {
+      const keyword = (searchInput?.value || '').trim().toLowerCase();
+      if (!productCards.length) return;
+
+      productCards.forEach((card) => {
+        const text = card.textContent?.toLowerCase() || '';
+        card.style.display = !keyword || text.includes(keyword) ? '' : 'none';
+      });
+    };
+
+    searchButton?.addEventListener('click', runProductFilter);
+    searchInput?.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') runProductFilter();
+    });
+  }
+
+  const mobileNav = document.createElement('nav');
+  mobileNav.className = 'mobile-bottom-nav';
+  mobileNav.setAttribute('aria-label', 'Mobile quick navigation');
+  mobileNav.innerHTML = `
+    <a href="${toPage('index.html')}"><strong>⌂</strong>Home</a>
+    <a href="${toPage('womens-accessories.html')}"><strong>◫</strong>Accessories</a>
+    <a href="${toPage('makeup.html')}"><strong>⌕</strong>Makeup</a>
+    <a href="${toPage('skincare.html')}"><strong>☺</strong>Skincare</a>
+  `;
+  document.body.appendChild(mobileNav);
+  document.body.classList.add('has-mobile-nav');
+
+  Array.from(mobileNav.querySelectorAll('a')).forEach((link) => {
+    const href = link.getAttribute('href') || '';
+    const normalizedHref = href.replace(/^\./, '');
+    if (currentPath.endsWith(normalizedHref.replace(/^\//, '')) || currentPath.endsWith(href.replace(/^\.\//, ''))) {
+      link.classList.add('active');
+    }
+  });
 }
 
-const mobileNav = document.createElement('nav');
-mobileNav.className = 'mobile-bottom-nav';
-mobileNav.setAttribute('aria-label', 'Mobile quick navigation');
-mobileNav.innerHTML = `
-  <a href="/index.html"><strong>⌂</strong>Home</a>
-  <a href="/womens-accessories.html"><strong>◫</strong>Accessories</a>
-  <a href="/makeup.html"><strong>⌕</strong>Makeup</a>
-  <a href="/skincare.html"><strong>☺</strong>Skincare</a>
-`;
-document.body.appendChild(mobileNav);
-
-Array.from(mobileNav.querySelectorAll('a')).forEach((link) => {
-  if (currentPath.endsWith(link.getAttribute('href')) || (currentPath === '/' && link.getAttribute('href') === '/index.html')) {
-    link.style.color = 'var(--accent-dark)';
-    link.style.fontWeight = '700';
-  }
-});
-
-// Product detail modal for all product cards
+// Product detail modal
 const detailModal = document.createElement('aside');
 detailModal.className = 'product-detail-modal';
 detailModal.setAttribute('aria-hidden', 'true');
@@ -159,8 +189,7 @@ const openProductDetails = (card) => {
   detailModal.setAttribute('aria-hidden', 'false');
 };
 
-const interactiveCards = document.querySelectorAll('.product-card, .product-list-card, .you-may-love-card');
-interactiveCards.forEach((card) => {
+productCards.forEach((card) => {
   card.setAttribute('tabindex', '0');
   card.setAttribute('role', 'button');
   card.setAttribute('aria-label', 'Open product details');
